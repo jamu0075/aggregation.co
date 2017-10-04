@@ -22,15 +22,15 @@ function RealEscapeString($db, $escapestr)
  * Database access
  */
 
-/* $username = "root"; */
-$username = "cms";
+$username = "tempuser";
+//$username = "cms";
 
-/*$password = ""; */
-$password = "Abby2008";
+$password = "";
+//$password = "Abby2008";
 
-/* $host = "localhost"; */
+$host = "localhost";
 //$host = "209.17.116.156";
-$host = "205.178.137.139";
+//$host = "205.178.137.139";
 
 $dbname = "cornfedcms";
 

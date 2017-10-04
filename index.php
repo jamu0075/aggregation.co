@@ -43,6 +43,7 @@ function DisplayColumn($db, $query)
 function DisplayItem($prev, $item)
 {
     echo "<article>";
+		echo $item['itemThumbnail'];
 
     // Separator (or not) and feed title
     if ($prev == NULL || $prev['feedTitle'] != $item['feedTitle'] ) {
@@ -91,6 +92,9 @@ function DisplayItem($prev, $item)
 	    echo "</a>";
 
     }
+
+
+
     echo "</div>\n";
 
     // Item description

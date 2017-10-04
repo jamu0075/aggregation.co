@@ -26,6 +26,7 @@ foreach ($rows as $feed) {
 		echo "Item pub date   : " . $item['itemPubDate'] . "\n";
 		echo "Item link       : " . $item['itemLink'] . "\n";
 		echo "Item description: " . $item['itemDesc'] . "\n";
+		echo "Item thumbnail: " . $item['itemThumbnail'] . "\n";
 		echo "</pre>\n";
 	}
 }
