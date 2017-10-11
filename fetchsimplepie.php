@@ -15,6 +15,7 @@ $rows = Query($db, $query);
 // Load the items for each feed
 foreach ($rows as $feed) {
 	// Load items for all feeds
+
 	echo "<div><b>Feed id " . $feed['id'] . " link: ";
 	echo $feed['link'] . "</b></div>\n";
 
@@ -28,7 +29,7 @@ foreach ($rows as $feed) {
 	echo $content->get_title();
 	echo "</div>\n";
 
-        // Display each RSS item
+  // Display each RSS item
 	foreach ($content->get_items() as $item) {
 
 		// Check whether item already exists in the items table
@@ -39,7 +40,7 @@ foreach ($rows as $feed) {
 			$item->get_feed()->get_permalink() .
 			"\" AND itemLink=\"" .
 			$item->get_permalink() .
-			"\"";
+			"\" AND image=\"" ;
 
 		echo "itemquery=\"" . $itemquery . "\"\n";
 
@@ -57,34 +58,33 @@ foreach ($rows as $feed) {
 			echo $item->get_description();
 			echo "</div>";
 
-			echo "<div>";
-			echo $item->get_thumbnail();
-			echo "</div>";
+			if($item->get_author() != NULL){
+						$author = $item->get_author();
+						//INSERT INTO item (itemAuthor) VALUES (" . $author .)
+			}
 
-			// Insert the item in the items table
+			//Insert the item in the items table
 			if ($item->get_title() == NULL) {
-
-
-			$insertquery =
-				"INSERT INTO items (id,feedTitle,feedLink,itemPubDate,itemLink, itemThumbnail, itemDesc) VALUES (" .
-				$feed['id'] . ",'" .
-				$item->get_feed()->get_title() .
-				"','" .
-				$item->get_feed()->get_permalink() .
-				"','" .
-				$item->get_local_date() .
-				"','" .
-				$item->get_permalink() .
-				"','" .
-				$item->get_thumbnail() .
-				"','" .
-				RemoveLinks($item->get_description()) .
-				"')";
+				$insertquery =
+					"INSERT INTO items (id,feedTitle,feedLink,itemPubDate,itemLink,itemDesc, itemAuthor) VALUES (" .
+					$feed['id'] . ",'" .
+					$item->get_feed()->get_title() .
+					"','" .
+					$item->get_feed()->get_permalink() .
+					"','" .
+					$item->get_local_date() .
+					"','" .
+					$item->get_permalink() .
+					"','" .
+					RemoveLinks($item->get_description()) .
+					//"','" .
+					//$author->get_name() .
+					"')";
 
 			} else {
 
 			$insertquery =
-				"INSERT INTO items (id,feedTitle,feedLink,itemTitle,itemPubDate,itemLink, itemThumbnail, itemDesc) VALUES (" .
+				"INSERT INTO items (id,feedTitle,feedLink,itemTitle,itemPubDate,itemLink,itemDesc, itemAuthor) VALUES (" .
 				$feed['id'] . ",'" .
 				$item->get_feed()->get_title() .
 				"','" .
@@ -96,16 +96,16 @@ foreach ($rows as $feed) {
 				"','" .
 				$item->get_permalink() .
 				"','" .
-				$item->get_thumbnail() .
-				"','" .
 				RemoveLinks($item->get_description()) .
+				//"','" .
+				//$author->get_name() .
 				"')";
-
-			}
+				}
 
 		echo "insertquery=\"" . $insertquery . "\"\n";
 
 			Query($db, $insertquery);
+
 		}
 	}
 }
